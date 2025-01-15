@@ -1,8 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from secret_manager import get_secret
 
-DATABASE_URL = "mysql+mysqlconnector://root:root@34.46.176.252/sqlalchemy-heloise-exelcia"
+value_password = get_secret("db_password_key", "1")
+
+DATABASE_URL = f"mysql+mysqlconnector://root:{value_password}@34.46.176.252/sqlalchemy-heloise-exelcia"
 
 #sqlalchemy-heloise-exelcia
 #exelcia-heloise:us-central1:exelcia-api

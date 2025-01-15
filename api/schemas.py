@@ -9,7 +9,7 @@ class CarModel(BaseModel):
     model: str #= Field(..., description="Model de la voiture")
     #email: EmailStr
     daily_rate: Optional[float] = None
-    create_dt: datetime
+    create_dt: Optional[datetime] = None
 
     @field_validator("model")
     def validate_model(cls, value):
@@ -22,6 +22,25 @@ class CarModel(BaseModel):
 
 class Car(CarModel):
     id:int
+    #fullname: str
 
 class CarCreate(CarModel):
+    pass
+
+class RentalParentSchema(BaseModel):
+    start_date: datetime
+    end_date: datetime
+    total_cost: float
+    car_id: int
+
+class RentalDisplaySchema(RentalParentSchema):
+    id: int
+    car: Car
+    '''
+    A mettre partout sur les display d'objets liés à des tables
+    '''
+    class Config:
+        orm_mode = True
+
+class RentalCreateSchema(RentalParentSchema):
     pass
